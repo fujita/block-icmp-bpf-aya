@@ -1,0 +1,12 @@
+[package]
+name = "block-icmp-bpf-aya"
+version = "0.1.0"
+authors = ["FUJITA Tomonori <fujita.tomonori@gmail.com>"]
+edition = "2018"
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+[dependencies]
+aya = "0.10"
+clap = "2"
+ctrlc = "3.1.9"
