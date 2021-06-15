@@ -1,4 +1,4 @@
-This is just an example of how to write BPF (XDP) application with [aya](https://github.com/alessandrod/aya), purely Rust library for BPF.
+This is just an example of how to write BPF (XDP) application with [Aya](https://github.com/alessandrod/aya), purely Rust library for BPF.
 
 The other Rust libraries for BPF, [libbpf-rs](https://github.com/libbpf/libbpf-rs) and [RedBPF](https://github.com/foniod/redbpf) internally use the canonical C library, [libbpf](https://github.com/libbpf/libbpf).
 
