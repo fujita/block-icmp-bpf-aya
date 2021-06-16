@@ -1,14 +1,14 @@
 use aya::programs::{Xdp, XdpFlags};
-use aya::Bpf;
+use aya::{Bpf, Btf};
 use clap::{App, Arg};
 use std::convert::TryInto;
 use std::sync::atomic::{AtomicBool, Ordering};
 use std::sync::Arc;
 use std::{thread, time};
 
-const BPF_OBJ_PATH: &str = "./src/bpf/.output/block-icmp.bpf.o";
-
 fn main() {
+    let code = include_bytes!("bpf/.output/block-icmp.bpf.o");
+
     let running = Arc::new(AtomicBool::new(true));
     let r = running.clone();
     ctrlc::set_handler(move || {
@@ -27,7 +27,7 @@ fn main() {
         .get_matches();
     let dev_name = args.value_of("DEV").unwrap();
 
-    let mut bpf = Bpf::load_file(BPF_OBJ_PATH).unwrap();
+    let mut bpf = Bpf::load(&code.to_vec(), Btf::from_sys_fs().ok()).unwrap();
     let program: &mut Xdp = bpf.program_mut("xdp").unwrap().try_into().unwrap();
     program.load().unwrap();
     program.attach(dev_name, XdpFlags::default()).unwrap();
